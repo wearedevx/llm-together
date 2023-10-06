@@ -4,7 +4,7 @@
 [![Changelog](https://img.shields.io/github/v/release/accudio/llm-together?include_prereleases&label=changelog)](https://github.com/wearedevx/llm-together/releases)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/wearedevx/llm-together/blob/main/LICENSE)
 
-Plugin for [LLM](https://llm.datasette.io/) adding support for [Together](https://together.ai/)'s 
+Plugin for [LLM](https://llm.datasette.io/) adding support for [Together](https://together.ai/)
 
 ## Installation
 
