@@ -1,6 +1,18 @@
 [project]
 name = "llm-together"
 version = "0.1"
-
+authors = [
+  { name="Kévin Quesada" },
+]
+description = "llm together plugin"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "llm together plugin",
+]
 [project.entry-points.llm]
 together = "llm_together"
+
+[project.urls]
+"Homepage" = "https://github.com/wearedevx/llm-together"
+"Bug Tracker" = "https://github.com/wearedevx/llm-together/issues"
