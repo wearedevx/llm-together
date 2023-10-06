@@ -1,0 +1,6 @@
+[project]
+name = "llm-together"
+version = "0.1"
+
+[project.entry-points.llm]
+together = "llm_together"
