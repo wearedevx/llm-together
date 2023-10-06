@@ -1,12 +1,12 @@
 import llm
 import together
-from pydantic import field_validator, Field
+from pydantic import Field
 from typing import Optional
 
 @llm.hookimpl
 def register_models(register):
 
-    together_instance = Together({"name": ""})
+    together_instance = Together()
     model_list = together_instance.get_models()
 
     for model in model_list:
@@ -20,17 +20,18 @@ class Together(llm.Model):
     model_id = "llm-together"
     needs_key = "together"
     key_env_var = "TOGETHER_API_KEY"
+    default_stop = "<human>"
 
     def get_models(self):
         together.api_key = self.get_key()
         return together.Models.list()
-
-    def __init__(self, model):
+    
+    def __init__(self, model=None):
         together.api_key = self.get_key()
-        print("self.get_key()")
-        print(self.get_key())
-        self.model_id = model["name"]
-        self.model = model
+
+        if (model is not None):
+            self.model_id = model["name"]
+            self.model = model
 
     class Options(llm.Options):
         temperature: Optional[float] = Field(
@@ -68,10 +69,6 @@ class Together(llm.Model):
             le=2,
             default=None,
         )
-        # stop: Optional[str] = Field(
-        #     description=("A string where the API will stop generating further tokens."),
-        #     default=None,
-        # )
 
     def execute(self, prompt, stream, response, conversation):
         kwargs = dict(not_nulls(prompt.options))
@@ -90,7 +87,7 @@ class Together(llm.Model):
         if 'prompt_format' in self.model["config"] and self.model["config"]['prompt_format']:
             user_prompt = self.model["config"]["prompt_format"].format(prompt = user_prompt)
 
-        stop = ""
+        stop = self.default_stop
 
         if 'stop' in self.model["config"]:
             stop = self.model["config"]["stop"]
@@ -101,8 +98,5 @@ class Together(llm.Model):
             stop = stop,
             **kwargs,
         )
-
-        print("output")
-        print([output['output']['choices'][0]['text']])
 
         return [output['output']['choices'][0]['text']]

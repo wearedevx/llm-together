@@ -1,1 +1,4 @@
 .pytest_cache
+venv/
+llm_together.egg-info/
+__pycache__

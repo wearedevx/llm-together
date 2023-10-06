@@ -14,21 +14,20 @@ def get_long_description():
 
 setup(
     name="llm-together",
-    description="Plugin for LLM adding support for Togetherai",
+    description="Plugin for LLM adding support for Together",
     long_description=get_long_description(),
     long_description_content_type="text/markdown",
-    author="Simon Willison",
-    url="https://github.com/simonw/llm-together",
+    author="Samuel Roy",
+    url="https://github.com/wearedevx/llm-together",
     project_urls={
-        "Issues": "https://github.com/simonw/llm-together/issues",
-        "CI": "https://github.com/simonw/llm-together/actions",
-        "Changelog": "https://github.com/simonw/llm-together/releases",
+        "Issues": "https://github.com/wearedevx/llm-together/issues",
+        "CI": "https://github.com/wearedevx/llm-together/actions",
+        "Changelog": "https://github.com/wearedevx/llm-together/releases",
     },
     license="Apache License, Version 2.0",
     classifiers=["License :: OSI Approved :: Apache Software License"],
     version=VERSION,
     entry_points={"llm": ["together = llm_together"]},
-    install_requires=["llm>=0.5", "together"]   ,
-    extras_require={"test": ["pytest"]},
-    # python_requires=">=3.9",
+    install_requires=["llm>=0.5", "together"],
+    extras_require={"test": ["pytest"]}
 )
