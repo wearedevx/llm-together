@@ -72,25 +72,25 @@ class Together(llm.Model):
 
     def execute(self, prompt, stream, response, conversation):
         kwargs = dict(not_nulls(prompt.options))
-        
-        user_prompt = "{}\n\n{}".format(prompt.system, prompt.prompt)
 
+        user_prompt = "{}\n\n{}".format(prompt.system or "", prompt.prompt)
         history = ""
-
-        if conversation is not None:
-            for message in conversation.responses:
-                if 'prompt_format' in self.model["config"] and self.model["config"]['prompt_format']:
-                    history += self.model["config"]["prompt_format"].format(prompt = message.prompt) + " " + message.text() + "\n"
-                else:
-                    history += "{}\n\n{}".format(message.prompt, message.text())+ "\n"
-
-        if 'prompt_format' in self.model["config"] and self.model["config"]['prompt_format']:
-            user_prompt = self.model["config"]["prompt_format"].format(prompt = user_prompt)
-
         stop = self.default_stop
 
-        if 'stop' in self.model["config"]:
-            stop = self.model["config"]["stop"]
+        if 'config' in self.model:
+            if conversation is not None:
+                for message in conversation.responses:
+                    if 'prompt_format' in self.model["config"] and self.model["config"]['prompt_format']:
+                        history += self.model["config"]["prompt_format"].format(prompt = message.prompt) + " " + message.text() + "\n"
+                    else:
+                        history += "{}\n\n{}".format(message.prompt, message.text())+ "\n"
+
+            if 'prompt_format' in self.model["config"] and self.model["config"]['prompt_format']:
+                user_prompt = self.model["config"]["prompt_format"].format(prompt = user_prompt)
+
+
+            if 'stop' in self.model["config"]:
+                stop = self.model["config"]["stop"]
 
         output = together.Complete.create(
             prompt =  history + "\n" + user_prompt,
