@@ -21,6 +21,7 @@ class Together(llm.Model):
     needs_key = "together"
     key_env_var = "TOGETHER_API_KEY"
     default_stop = "<human>"
+    can_stream = True
 
     def get_models(self):
         together.api_key = self.get_key()
@@ -92,11 +93,21 @@ class Together(llm.Model):
             if 'stop' in self.model["config"]:
                 stop = self.model["config"]["stop"]
 
-        output = together.Complete.create(
-            prompt =  history + "\n" + user_prompt,
-            model = self.model_id, 
-            stop = stop,
-            **kwargs,
-        )
+        if stream:
+            for token in together.Complete.create_streaming(
+                prompt =  history + "\n" + user_prompt,
+                model = self.model_id,
+                stop = stop,
+                **kwargs,
+            ):
+                yield token
 
-        return [output['output']['choices'][0]['text']]
+        else:
+            output = together.Complete.create(
+                prompt =  history + "\n" + user_prompt,
+                model = self.model_id,
+                stop = stop,
+                **kwargs,
+            )
+
+            return [output['output']['choices'][0]['text']]

@@ -21,6 +21,7 @@ def test_together_response(mock_together):
             ]
         }
     }
+    mock_together.Complete.create_streaming.return_value = ["hello"]
 
     prompt = Prompt("hello", "")
 
