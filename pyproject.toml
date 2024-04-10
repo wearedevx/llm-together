@@ -1,7 +1,7 @@
 [project]
 dynamic = ["optional-dependencies"]
 name = "llm-together"
-version = "0.3"
+version = "0.4"
 license = { text="MIT" }
 authors = [
   { name="Kévin Quesada" },
@@ -10,7 +10,7 @@ description = "llm together plugin"
 readme = "README.md"
 requires-python = ">=3.7"
 dependencies = [
-  "llm>=0.5", "together"
+  "llm>=0.5", "together==0.2.11" 
 ]
 classifiers = [
     "License :: OSI Approved :: Apache Software License"
@@ -21,4 +21,4 @@ together = "llm_together"
 
 [project.urls]
 "Homepage" = "https://github.com/wearedevx/llm-together"
-"Bug Tracker" = "https://github.com/wearedevx/llm-together/issues"
+"Bug Tracker" = "https://github.com/wearedevx/llm-together/issues" 
