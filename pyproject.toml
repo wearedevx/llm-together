@@ -10,7 +10,7 @@ description = "llm together plugin"
 readme = "README.md"
 requires-python = ">=3.7"
 dependencies = [
-  "llm>=0.5", "together==0.2.11" 
+  "llm>=0.5", "together==0.2.9" 
 ]
 classifiers = [
     "License :: OSI Approved :: Apache Software License"
